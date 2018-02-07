@@ -1,4 +1,4 @@
-# aula-vip-LucasAlbuquerque
+# Aula vip - Lucas Albuquerque
 
 ## Conteúdo requisitado
 
@@ -82,6 +82,10 @@ A geoloc dos produtos se dará pela mesma informaço definida no perfil do Selle
 O preço de venda do produto vem de Inventory.price.toSell
 
 ## Roteiro
+
+Iremos partir do Banco de Dados para frente pois é mais fácil desenvolver o Frontend<br>
+após possuirmos a API para o consumo dos dados, por mais que sejam *mockados*.
+
 
 
 ### Primeira Etapa
