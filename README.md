@@ -40,12 +40,46 @@ como Produtos, utilizando Infinite Scroll.
 
 ### Banco de Dados
 
+Coleções:
+
+- Users;
+  - Address
+    - ...
+    - lat/long
+  - Sellers;
+  - Buyers;
+  - Admins;
+- Products/Articles;
+  - lat/long;
+  - image;
+  - title;
+  - description;
+  - price; // Invetory.price.toSell
+- Inventory; // veremos
+  - product_id
+  - price:
+    - base;
+    - profit; // in %
+    - toSell; // price.base * (price.profit / 100)
+- Orders;
+  - products; // list of products_ids
+  - seller_id;
+  - buyer_id;
 
 ### Backend
 
 
 ### Frontend
 
+
+## Projeto Final
+
+Um e-commerce simples com Frontend com jQuery e Vanilla que consome uma API<br>
+usando Express para as rotas, interligando até o Model feito com Mongoose/MongoDb.<br>
+
+A geoloc dos produtos se dará pela mesma informaço definida no perfil do Seller.
+
+O preço de venda do produto vem de Inventory.price.toSell
 
 ## Roteiro
 
