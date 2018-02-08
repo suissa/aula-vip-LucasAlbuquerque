@@ -6,7 +6,39 @@
   </head>
   <body>
 
+    <main id="products">
+
+    </main>
+
     <script src="ajax.js"></script>
-    <script src="script.js"></script>
+    <script>
+    const Lib = {};
+
+      const _get = (url = 'http://localhost:3000/products') => {
+
+        return ajax({
+          method: 'get',
+          url
+        })
+      }
+
+      Lib.get = _get
+
+      const success = (data) => {
+        document.getElementById("products").textContent = JSON.stringify(data)
+      }
+      
+      // console.log('success: ', data)
+
+      const error = (err) => console.log('error: ', err)
+
+      console.log(
+        Lib.get('http://localhost:3000/products')
+          .then((data) => {
+            document.getElementById("products").textContent = JSON.stringify(data)
+          })
+          .catch((err) => console.log('error: ', err))
+      )
+    </script>
   </body>
 </html>
