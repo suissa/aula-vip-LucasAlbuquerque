@@ -53,7 +53,9 @@ router.get('/:page?', function (req, res, next) {
   console.log('getProducts: ', getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE));
   console.log('page: ', page);
   console.log('------------------------------------');
-  res.json(getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE))
+  res.json(getProducts().slice( 
+    page === 1 ? 0 : page * PRODUCTS_PER_PAGE, 
+    page * PRODUCTS_PER_PAGE + PRODUCTS_PER_PAGE))
 })
 
 module.exports = router

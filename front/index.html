@@ -14,6 +14,11 @@
     <script>
     const Lib = {};
 
+    console.time('sync')
+      for(let i = 0; i<= 1000; i++){}
+
+    console.timeEnd('sync')
+
       const _get = (url = 'http://localhost:3000/products') => {
 
         return ajax({
@@ -24,21 +29,23 @@
 
       Lib.get = _get
 
+      let teste = 0
       const success = (data) => {
         document.getElementById("products").textContent = JSON.stringify(data)
+        teste = data
       }
       
-      // console.log('success: ', data)
+      console.log('teste: ', teste)
 
       const error = (err) => console.log('error: ', err)
 
-      console.log(
+      console.time('async')
+      // console.log(
         Lib.get('http://localhost:3000/products')
-          .then((data) => {
-            document.getElementById("products").textContent = JSON.stringify(data)
-          })
-          .catch((err) => console.log('error: ', err))
-      )
+            // .then(success)
+            // .catch(error)
+      // )
+      console.timeEnd('async')
     </script>
   </body>
 </html>
