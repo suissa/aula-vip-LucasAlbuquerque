@@ -6,13 +6,19 @@
   </head>
   <body>
 
+    <p>
+      <button id="nextPage">
+        Next
+      </button>
+    </p>
     <ul id="products">
 
     </ul>
 
     <script src="ajax.js"></script>
     <script>
-    const Lib = {};
+      const page = 0
+      const Lib = {};
 
       const _get = (url = 'http://localhost:3000/products') => {
 
@@ -32,7 +38,7 @@
               <br>
               <img width=100 src='${el.logo}'> 
             </p>
-            </li>`).join('')
+            </li>`).join('') && ++page
 
       
       
@@ -41,9 +47,13 @@
 
       // console.time('async')
       // console.log(
-        Lib.get('http://localhost:3000/products')
+      
+      const getProducts = (page) =>
+        Lib.get('http://localhost:3000/products/'+ page)
             .then(success)
             .catch(error)
+
+      getProducts(page)
       // )
       // console.timeEnd('async')
     </script>
