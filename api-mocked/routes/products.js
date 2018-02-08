@@ -33,14 +33,27 @@ const getRandomProduct = ( product, i ) => ( {
   logo: getLogo()
 } )
 
-const getProducts = () => Array( 100 ).fill( 0 ).map( getRandomProduct )
+const QNTD_PRODUCTS = 120
+const PRODUCTS_PER_PAGE = 8
 
-console.log( '------------------------------------' )
-console.log( 'getProducts: ', getProducts() )
-console.log( '------------------------------------' )
+const getProducts = () => Array( QNTD_PRODUCTS ).fill( 0 ).map( getRandomProduct )
 
-router.get( '/', function ( req, res, next ) {
-  res.json( getProducts() )
-} )
+// console.log( '------------------------------------' )
+// console.log( 'getProducts: ', getProducts() )
+// console.log( '------------------------------------' )
+
+// router.get( '/', function ( req, res, next ) {
+//   res.json( getProducts() )
+// } )
+
+
+router.get('/:page?', function (req, res, next) {
+  const page = (!req.params.page) ? 1 : req.params.page
+  console.log('------------------------------------');
+  console.log('getProducts: ', getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE));
+  console.log('page: ', page);
+  console.log('------------------------------------');
+  res.json(getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE))
+})
 
 module.exports = router
