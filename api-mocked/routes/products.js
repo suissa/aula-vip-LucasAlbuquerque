@@ -48,13 +48,13 @@ const getProducts = () => Array( QNTD_PRODUCTS ).fill( 0 ).map( getRandomProduct
 
 
 router.get('/:page?', function (req, res, next) {
-  const page = (!req.params.page) ? 1 : req.params.page
+  const page = (!req.params.page) ? 1 : Number(req.params.page)
   console.log('------------------------------------');
-  console.log('getProducts: ', getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE));
+  // console.log('getProducts: ', getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE));
   console.log('page: ', page);
   console.log('------------------------------------');
   res.json(getProducts().slice( 
-    page === 1 ? 0 : page * PRODUCTS_PER_PAGE, 
+    (page === 1) ? 0 : (page - 1) * PRODUCTS_PER_PAGE, 
     page * PRODUCTS_PER_PAGE + PRODUCTS_PER_PAGE))
 })
 
