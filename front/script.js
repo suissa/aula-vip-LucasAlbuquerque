@@ -5,11 +5,12 @@ const _get = (params) => {
 }
 
 var request = ajax({
-  method: 'options',
-  url: 'http://localhost:3000/products',
-  data: {
-    user: 'john'
-  }
+  method: 'get',
+  url: 'http://localhost:3000/products'
 })
 
-console.log(request);
+const success = (data) => console.log('success: ', data)
+const error = (err) => console.log('error: ', err)
+
+
+console.log(request.then(success).catch(error));
