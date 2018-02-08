@@ -38,24 +38,16 @@
               <br>
               <img width=100 src='${el.logo}'> 
             </p>
-            </li>`).join('') && ++page
+            </li>`).join('')
 
       
       
 
       const error = (err) => console.log('error: ', err)
 
-      // console.time('async')
-      // console.log(
-      
-      const getProducts = (page) =>
-        Lib.get('http://localhost:3000/products/'+ page)
+        Lib.get('http://localhost:3000/products')
             .then(success)
             .catch(error)
-
-      getProducts(page)
-      // )
-      // console.timeEnd('async')
     </script>
   </body>
 </html>
