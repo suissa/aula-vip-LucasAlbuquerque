@@ -6,18 +6,13 @@
   </head>
   <body>
 
-    <main id="products">
+    <ul id="products">
 
-    </main>
+    </ul>
 
     <script src="ajax.js"></script>
     <script>
     const Lib = {};
-
-    console.time('sync')
-      for(let i = 0; i<= 1000; i++){}
-
-    console.timeEnd('sync')
 
       const _get = (url = 'http://localhost:3000/products') => {
 
@@ -29,23 +24,28 @@
 
       Lib.get = _get
 
-      let teste = 0
-      const success = (data) => {
-        document.getElementById("products").textContent = JSON.stringify(data)
-        teste = data
-      }
+      const success = (data) => 
+        document.getElementById("products").innerHTML += data.map( el =>
+          `<li> 
+            <p>
+              ${el.name} 
+              <br>
+              <img width=100 src='${el.logo}'> 
+            </p>
+            </li>`).join('')
+
       
-      console.log('teste: ', teste)
+      
 
       const error = (err) => console.log('error: ', err)
 
-      console.time('async')
+      // console.time('async')
       // console.log(
         Lib.get('http://localhost:3000/products')
-            // .then(success)
-            // .catch(error)
+            .then(success)
+            .catch(error)
       // )
-      console.timeEnd('async')
+      // console.timeEnd('async')
     </script>
   </body>
 </html>

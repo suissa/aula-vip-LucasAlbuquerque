@@ -36,26 +36,22 @@ const getRandomProduct = ( product, i ) => ( {
 const QNTD_PRODUCTS = 120
 const PRODUCTS_PER_PAGE = 8
 
-const getProducts = () => Array( QNTD_PRODUCTS ).fill( 0 ).map( getRandomProduct )
-
-// console.log( '------------------------------------' )
-// console.log( 'getProducts: ', getProducts() )
-// console.log( '------------------------------------' )
-
-// router.get( '/', function ( req, res, next ) {
-//   res.json( getProducts() )
-// } )
+const getBeginPage = (page) => (page === 1) ? 0 : (page - 1) * PRODUCTS_PER_PAGE
+const getEndPage = (page) => page * PRODUCTS_PER_PAGE + PRODUCTS_PER_PAGE
+const createArray = (size = 10, value = 0) => Array(size).fill(value)
+const createProducts = (list, fn) => list.map(fn)
+const getProductsByPage = (page, list) => list.slice(getBeginPage(page), getEndPage(page))
 
 
-router.get('/:page?', function (req, res, next) {
-  const page = (!req.params.page) ? 1 : Number(req.params.page)
-  console.log('------------------------------------');
-  // console.log('getProducts: ', getProducts().slice(page - 1, page * PRODUCTS_PER_PAGE));
-  console.log('page: ', page);
-  console.log('------------------------------------');
-  res.json(getProducts().slice( 
-    (page === 1) ? 0 : (page - 1) * PRODUCTS_PER_PAGE, 
-    page * PRODUCTS_PER_PAGE + PRODUCTS_PER_PAGE))
-})
+const getProducts = (page) => getProductsByPage(page, 
+                                                  createProducts(
+                                                    createArray(QNTD_PRODUCTS), 
+                                                    getRandomProduct
+                                                  )
+                                                )
+
+router.get('/:page?', (req, res, next) =>
+  res.json( getProducts( ( !req.params.page ) ? 1 : Number( req.params.page )) )
+)
 
 module.exports = router
