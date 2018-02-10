@@ -17,7 +17,7 @@
 
     <script src="ajax.js"></script>
     <script>
-      const page = 0
+      window.page = 1
       const Lib = {};
 
       const _get = (url = 'http://localhost:3000/products') => {
@@ -30,7 +30,7 @@
 
       Lib.get = _get
 
-      const success = (data) => 
+      const success = (data) => {
         document.getElementById("products").innerHTML += data.map( el =>
           `<li> 
             <p>
@@ -40,14 +40,27 @@
             </p>
             </li>`).join('')
 
+          ++window.page
+        }
+
       
       
 
       const error = (err) => console.log('error: ', err)
 
-        Lib.get('http://localhost:3000/products')
-            .then(success)
-            .catch(error)
+      Lib.get('http://localhost:3000/products/'+ window.page)
+          .then(success)
+          .catch(error)
+
+      window.onscroll = function (ev) {
+          if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+            console.log("you're at the bottom of the page: ", window.page);
+
+            Lib.get('http://localhost:3000/products/' + window.page )
+              .then(success)
+              .catch(error)
+          }
+        };
     </script>
   </body>
 </html>
